@@ -25,6 +25,7 @@ clean: clean-sw clean-vsim clean-vlt clean-vcs clean-logs clean-bender
 MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 MKFILE_DIR  := $(dir $(MKFILE_PATH))
 ROOT        := ${MKFILE_DIR}../..
+SNITCH_ROOT := $(ROOT)
 
 include $(ROOT)/target/common/common.mk
 
