@@ -29,6 +29,15 @@ ENV PATH "/root/.cargo/bin:${PATH}"
 # Install Bender
 RUN cargo install bender --version 0.23.2
 
+# Get LLVM 12
+RUN wget https://apt.llvm.org/llvm.sh
+RUN chmod +x llvm.sh
+RUN ./llvm.sh 12
+
+# Install `banshee`
+RUN git clone https://github.com/pulp-platform/banshee.git /tmp/banshee --recurse-submodules
+RUN cargo install --path /tmp/banshee
+
 # 2. Stage
 FROM ubuntu:18.04 AS snitch
 ARG SNITCH_LLVM_VERSION=latest
@@ -38,7 +47,7 @@ ARG VERILATOR_VERSION=4.100
 LABEL version="0.1"
 LABEL description="Snitch container for hardware and software development."
 LABEL maintainer="zarubaf@iis.ee.ethz.ch"
-LABEL org.opencontainers.image.source https://github.com/pulp-platform/snitch
+LABEL org.opencontainers.image.source https://github.com/pulp-platform/snitch_cluster
 
 WORKDIR /tools
 
